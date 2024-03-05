@@ -1,11 +1,10 @@
 package com.opus.squadscheme.api.v1.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -18,4 +17,7 @@ public class Training {
 
     private String name;
     private Integer riskOfInjury;
+
+    @OneToMany(mappedBy = "trainingType", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Schedule> schedules;
 }

@@ -39,7 +39,7 @@ public class TrainingController {
         try {
             Training res = trainingService.create(trainingData);
 
-            return new ResponseEntity<>(res, HttpStatus.OK);
+            return new ResponseEntity<>(res, HttpStatus.CREATED);
         } catch (BadRiskOfInjuryException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -78,9 +78,9 @@ public class TrainingController {
     @DeleteMapping("/{trainingId}")
     public ResponseEntity<?> deleteById(@PathVariable Integer trainingId) {
         try {
-            Training res = trainingService.findById(trainingId);
+            trainingService.delete(trainingId);
 
-            return new ResponseEntity<>(res,HttpStatus.OK);
+            return new ResponseEntity<>(trainingId + " excluido.",HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         } catch (Exception e) {
